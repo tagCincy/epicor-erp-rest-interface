@@ -55,9 +55,12 @@ class Api::V1::CustomerServiceController < ApplicationController
 	              </CustomerData>
                 <continueProcessingOnError>false</continueProcessingOnError>"
 			)
-		end
+    end
 
-		result   = output.body[:update_response][:update_result][:customer_data_set][:customer]
+
+    customer_response = output.body[:update_response][:update_result][:customer_data_set][:customer]
+    result = []
+    customer_response.is_a?(Array) ? result = customer_response : result << customer_response
 		response = []
 
 		result.each do |r|
