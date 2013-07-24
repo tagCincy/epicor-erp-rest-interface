@@ -7,7 +7,6 @@ platform :jruby do
 	gem 'activerecord-jdbcsqlite3-adapter'
 	gem 'jruby-openssl'
 	gem 'therubyrhino'
-	gem 'warbler'
 end
 
 platform :ruby do
@@ -27,3 +26,4 @@ group :test, :development do
 end
 
 gem 'savon'
+gem 'puma'

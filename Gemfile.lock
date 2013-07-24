@@ -202,4 +202,3 @@ DEPENDENCIES
   sqlite3
   therubyrhino
   uglifier (>= 1.0.3)
-  warbler
