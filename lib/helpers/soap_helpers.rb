@@ -33,7 +33,7 @@ module SoapHelpers
 			wsse_auth("manager", "manager")
 			pretty_print_xml true
 			log_level :debug
-			log false
+			log true
 			convert_request_keys_to :camelcase
 			env_namespace :soap
 			namespace_identifier nil
