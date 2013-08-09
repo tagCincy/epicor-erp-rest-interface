@@ -1,5 +1,26 @@
 class Api::V1::CustomerServiceController < ApplicationController
-	before_filter :customer_soap_client
+	before_filter :customer_soap_client, except: [:get_customer_dataset]
+
+  def get_customer_dataset
+    Rails.logger.debug "1"
+    @customers         = params["customers"]
+    @customer_data_set = build_customer_dataset
+    message_body       = ""
+
+    @customer_data_set.each do |c|
+      message_body += c
+    end
+
+    response = "<CustomerDataSet xmlns=\"\">
+                    #{message_body}
+                  </CustomerDataSet>"
+
+    respond_to do |format|
+      format.html
+      format.json { render json: response }
+      format.xml { render xml: response }
+    end
+  end
 
 	def get_customer
 		id           = params[:id]

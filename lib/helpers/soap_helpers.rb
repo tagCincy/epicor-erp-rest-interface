@@ -1,5 +1,7 @@
 module SoapHelpers
 
+
+
 	def company_id
 		"APEX01"
 	end

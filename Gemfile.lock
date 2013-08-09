@@ -101,6 +101,10 @@ GEM
       method_source (~> 0.8)
       slop (~> 3.4)
       spoon (~> 0.0)
+    puma (2.4.0)
+      rack (>= 1.1, < 2.0)
+    puma (2.4.0-java)
+      rack (>= 1.1, < 2.0)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -194,6 +198,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   guard-rspec
   jruby-openssl
+  puma
   rails (= 3.2.13)
   rspec-instafail
   rspec-rails
