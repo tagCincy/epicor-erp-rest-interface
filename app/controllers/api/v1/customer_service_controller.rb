@@ -58,6 +58,7 @@ class Api::V1::CustomerServiceController < ApplicationController
   end
 
   def create_customer
+    @company = params["company"]
     @customers = params["customers"]
     @customer_data_set = build_customer_dataset
     message_body = ""
@@ -68,7 +69,7 @@ class Api::V1::CustomerServiceController < ApplicationController
 
     output = @client.call(:update) do
       attributes({'xmlns' => "http://epicor.com/webservices/"})
-      message(" <CompanyID>APEX01</CompanyID>
+      message(" <CompanyID>#{@company}</CompanyID>
                 <CustomerData>
                   <CustomerDataSet xmlns=\"\">
                     #{message_body}
@@ -78,13 +79,10 @@ class Api::V1::CustomerServiceController < ApplicationController
       )
     end
 
-
     customer_response = output.body[:update_response][:update_result][:customer_data_set][:customer]
     result = []
     customer_response.is_a?(Array) ? result = customer_response : result << customer_response
     response = []
-
-    #Rails.logger.debug result.inspect
 
     result.each do |r|
       response << {"Character01" => r[:character01], "CustId" => r[:cust_id], "CustNum" => r[:cust_num], "CustType" => r[:customer_type]}
