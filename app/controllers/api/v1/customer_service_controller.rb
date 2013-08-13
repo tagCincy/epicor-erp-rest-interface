@@ -42,13 +42,22 @@ class Api::V1::CustomerServiceController < ApplicationController
   end
 
   def get_updated_customers
-    since_time = get_seconds_since_midnight(params[:h].to_i-1)
+    @company = params["company"]
     output = @client.call(:get_rows) do
       attributes({'xmlns' => "http://epicor.com/webservices/"})
-      message("<CompanyID>APEX01</CompanyID><whereClauseCustomer>ChangeDate = '#{Date.today.to_s}' AND ChangeTime > #{since_time} AND CustomerType = 'CUS'</whereClauseCustomer>")
+      message("<CompanyID>#{@company}</CompanyID><whereClauseCustomer>NOT Character01 = '' AND CheckBox01 = true</whereClauseCustomer>")
     end
 
-    response = output.body[:get_rows_response][:get_rows_result][:customer_data_set][:customer]
+    customer_response = output.body[:get_rows_response][:get_rows_result][:customer_data_set][:customer]
+    result = []
+    customer_response.is_a?(Array) ? result = customer_response : result << customer_response
+    response = []
+
+    result.each do |r|
+      response << {"Character01" => r[:character01], "CustId" => r[:cust_id], "CustNum" => r[:cust_num],
+                   "Name" => r[:name], "Address01" => r[:address1], "City" => r[:city], "State" => r[:state],
+                   "Zip" => r[:zip], "Country" => r[:country], "PhoneNum" => r[:phone_num], "FaxNum" => r[:fax_num]}
+    end
 
     respond_to do |format|
       format.html
@@ -85,7 +94,8 @@ class Api::V1::CustomerServiceController < ApplicationController
     response = []
 
     result.each do |r|
-      response << {"Character01" => r[:character01], "CustId" => r[:cust_id], "CustNum" => r[:cust_num], "CustType" => r[:customer_type]}
+      response << {"Character01" => r[:character01], "CustId" => r[:cust_id], "CustNum" => r[:cust_num],
+                   "CustomerType" => r[:customer_type], "CheckBox01" => r[:check_box01]}
     end
 
     respond_to do |format|
