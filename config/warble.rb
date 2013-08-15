@@ -8,10 +8,10 @@ Warbler::Config.new do |config|
   # - gemjar: package the gem repository in a jar file in WEB-INF/lib
   # - executable: embed a web server and make the war executable
   # - compiled: compile .rb files to .class files
-   config.features = %w(gemjar)
+  config.features = %w(gemjar)
 
   # Application directories to be included in the webapp.
-   config.dirs = %w(app config db lib log script vendor tmp)
+  config.dirs = %w(app config db lib log script vendor tmp)
 
   # Additional files/directories to include, above those in config.dirs
   # config.includes = FileList["db"]
@@ -23,10 +23,10 @@ Warbler::Config.new do |config|
   # in lib (and not otherwise excluded) then they need not be mentioned here.
   # JRuby and JRuby-Rack are pre-loaded in this list.  Be sure to include your
   # own versions if you directly set the value
-   config.java_libs += FileList["lib/java/*.jar"]
+  config.java_libs += FileList["lib/java/*.jar"]
 
   # Loose Java classes and miscellaneous files to be included.
-   config.java_classes = FileList["target/classes/**.*"]
+  config.java_classes = FileList["target/classes/**.*"]
 
   # One or more pathmaps defining how the java classes should be copied into
   # the archive. The example pathmap below accompanies the java_classes
@@ -49,7 +49,7 @@ Warbler::Config.new do |config|
   # so that they can be packaged in the archive.
   # For Rails applications, the Rails gems are included by default
   # unless the vendor/rails directory is present.
-   config.gems += ["activerecord-jdbcmysql-adapter", "jruby-openssl"]
+  config.gems += ["activerecord-jdbcmysql-adapter", "jruby-openssl"]
   # config.gems << "tzinfo"
 
   # Uncomment this if you don't want to package rails gem.
@@ -71,7 +71,7 @@ Warbler::Config.new do |config|
   # Array of regular expressions matching relative paths in gems to be
   # excluded from the war. Defaults to empty, but you can set it like
   # below, which excludes test files.
-   config.gem_excludes = [/^(test|spec)\//]
+  config.gem_excludes = [/^(test|spec)\//]
 
   # Pathmaps for controlling how application files are copied into the archive
   # config.pathmaps.application = ["WEB-INF/%p"]

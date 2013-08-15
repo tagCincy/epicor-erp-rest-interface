@@ -48,7 +48,8 @@ class Api::V1::CustomerServiceController < ApplicationController
       message("<CompanyID>#{@company}</CompanyID><whereClauseCustomer>NOT Character01 = '' AND CheckBox01 = true</whereClauseCustomer>")
     end
 
-    customer_response = output.body[:get_rows_response][:get_rows_result][:customer_data_set][:customer]
+    customer_response = output.body[:get_rows_response][:get_rows_result].nil? ? [] :
+        output.body[:get_rows_response][:get_rows_result][:customer_data_set][:customer]
     result = []
     customer_response.is_a?(Array) ? result = customer_response : result << customer_response
     response = []

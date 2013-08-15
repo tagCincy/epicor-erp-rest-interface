@@ -1,47 +1,46 @@
 module SoapHelpers
 
 
+  def company_id
+    "APEX01"
+  end
 
-	def company_id
-		"APEX01"
-	end
+  def customer_service_wsdl
+    "http://69.80.72.147/EpicorServices/CustomerService.asmx?WSDL"
+  end
 
-	def customer_service_wsdl
-		"http://69.80.72.147/EpicorServices/CustomerService.asmx?WSDL"
-	end
+  def customer_contact_service_wsdl
+    "http://69.80.72.147/EpicorServices/CustCntService.asmx?WSDL"
+  end
 
-	def customer_contact_service_wsdl
-		"http://69.80.72.147/EpicorServices/CustCntService.asmx?WSDL"
-	end
+  def get_by_id_message_body id
+    {"CompanyID" => "APEX01", "custNum" => id}
+  end
 
-	def get_by_id_message_body id
-		{ "CompanyID" => "APEX01", "custNum" => id }
-	end
+  def new_customer_message
+    {"CompanyID" => "APEX01"}
+  end
 
-	def new_customer_message
-		{ "CompanyID" => "APEX01" }
-	end
-
-	def get_seconds_since_midnight hours
-		@result = hours * 3600
-	end
+  def get_seconds_since_midnight hours
+    @result = hours * 3600
+  end
 
 
-	def soap_client wsdl_url
-		@client = Savon.client do
-			wsdl wsdl_url
-			wsse_auth("manager", "manager")
-			pretty_print_xml true
-			log_level :debug
-			log true
-			convert_request_keys_to :camelcase
-			env_namespace :soap
-			namespace_identifier nil
-		end
-	end
+  def soap_client wsdl_url
+    @client = Savon.client do
+      wsdl wsdl_url
+      wsse_auth("manager", "manager")
+      pretty_print_xml true
+      log_level :debug
+      log true
+      convert_request_keys_to :camelcase
+      env_namespace :soap
+      namespace_identifier nil
+    end
+  end
 
-	def customer_contact_data_set
-		@result ||= Nokogiri::XML("<CustCnt>
+  def customer_contact_data_set
+    @result ||= Nokogiri::XML("<CustCnt>
             <Company>APEX01</Company>
             <CustNum/>
             <ShipToNum/>
@@ -189,10 +188,10 @@ module SoapHelpers
             <RowIdent/>
             <RowMod>A</RowMod>
           </CustCnt>")
-	end
+  end
 
-	def customer_data_set
-		@result ||= Nokogiri::XML("<Customer>
+  def customer_data_set
+    @result ||= Nokogiri::XML("<Customer>
             <Company>APEX01</Company>
             <CustID/>
             <CustNum>0</CustNum>
@@ -636,5 +635,5 @@ module SoapHelpers
             <RowIdent/>
             <RowMod>A</RowMod>
           </Customer>")
-	end
+  end
 end

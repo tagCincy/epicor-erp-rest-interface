@@ -23,9 +23,9 @@ describe SoapHelpers do
   end
 
   describe "Savon Operations" do
-     it "should return an instance of Savon::Client" do
-         helper.soap_client("http://69.80.72.147/EpicorServices/CustomerService.asmx?WSDL").should be_an_instance_of Savon::Client
-     end
+    it "should return an instance of Savon::Client" do
+      helper.soap_client("http://69.80.72.147/EpicorServices/CustomerService.asmx?WSDL").should be_an_instance_of Savon::Client
+    end
   end
 
 end
