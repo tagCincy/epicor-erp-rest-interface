@@ -1,24 +1,23 @@
 module SoapHelpers
 
-
   def company_id
-    "APEX01"
+    ENV["E9_COMPANY"]
   end
 
   def customer_service_wsdl
-    "http://69.80.72.147/EpicorServices/CustomerService.asmx?WSDL"
+    "#{ENV["E9_SOAP_URL"]}/CustomerService.asmx?WSDL"
   end
 
   def customer_contact_service_wsdl
-    "http://69.80.72.147/EpicorServices/CustCntService.asmx?WSDL"
+    "#{ENV["E9_SOAP_URL"]}/CustCntService.asmx?WSDL"
   end
 
   def get_by_id_message_body id
-    {"CompanyID" => "APEX01", "custNum" => id}
+    {"CompanyID" => company_id, "custNum" => id}
   end
 
   def new_customer_message
-    {"CompanyID" => "APEX01"}
+    {"CompanyID" => company_id}
   end
 
   def get_seconds_since_midnight hours
@@ -29,10 +28,10 @@ module SoapHelpers
   def soap_client wsdl_url
     @client = Savon.client do
       wsdl wsdl_url
-      wsse_auth("manager", "manager")
+      wsse_auth(ENV["E9_WSSE_USER"], ENV["E9_WSSE_PASS"])
       pretty_print_xml true
       log_level :debug
-      log true
+      log false
       convert_request_keys_to :camelcase
       env_namespace :soap
       namespace_identifier nil
@@ -41,7 +40,7 @@ module SoapHelpers
 
   def customer_contact_data_set
     @result ||= Nokogiri::XML("<CustCnt>
-            <Company>APEX01</Company>
+            <Company>#{company_id}</Company>
             <CustNum/>
             <ShipToNum/>
             <ConNum>0</ConNum>
@@ -192,7 +191,7 @@ module SoapHelpers
 
   def customer_data_set
     @result ||= Nokogiri::XML("<Customer>
-            <Company>APEX01</Company>
+            <Company>#{company_id}</Company>
             <CustID/>
             <CustNum>0</CustNum>
             <Name/>

@@ -56,7 +56,7 @@ class Api::V1::CustomerServiceController < ApplicationController
 
     result.each do |r|
       response << {"Character01" => r[:character01], "CustId" => r[:cust_id], "CustNum" => r[:cust_num],
-                   "Name" => r[:name], "Address1" => r[:address1],"Address2" => r[:address2], "Address3" => r[:address3], "City" => r[:city], "State" => r[:state],
+                   "Name" => r[:name], "Address1" => r[:address1], "Address2" => r[:address2], "Address3" => r[:address3], "City" => r[:city], "State" => r[:state],
                    "Zip" => r[:zip], "Country" => r[:country], "PhoneNum" => r[:phone_num], "FaxNum" => r[:fax_num]}
     end
 
